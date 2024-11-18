@@ -3,7 +3,7 @@ import { signIn } from "~/server/auth";
 import { MainLayout } from "../../components/layout/MainLayout";
 
 const LoginPage = () => {
-  const onLogin = async (email: string, password: string) => {
+  const loginAction = async (email: string, password: string) => {
     "use server";
     await signIn("credentials", { email, password, callbackUrl: "/" });
   };
@@ -15,7 +15,7 @@ const LoginPage = () => {
           <h2 className="text-2xl font-medium">Login</h2>
         </div>
 
-        <LoginForm onLogin={onLogin} />
+        <LoginForm loginAction={loginAction} />
       </div>
     </MainLayout>
   );
