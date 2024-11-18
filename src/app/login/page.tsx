@@ -5,7 +5,7 @@ import { MainLayout } from "../../components/layout/MainLayout";
 const LoginPage = () => {
   const loginAction = async (email: string, password: string) => {
     "use server";
-    await signIn("credentials", { email, password, callbackUrl: "/" });
+    await signIn("credentials", { email, password, redirectTo: "/" });
   };
 
   return (

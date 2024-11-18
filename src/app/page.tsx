@@ -14,14 +14,20 @@ const Home = async () => {
   return (
     <HydrateClient>
       <MainLayout>
-        <p className="text-center text-2xl text-white">{session && <span>Logged in as {session.user?.name}</span>}</p>
+        <div className="flex size-full items-center">
+          <div className="flex w-full flex-col items-center justify-center gap-y-2 rounded-lg bg-gray-900 py-6">
+            <p className="text-center text-2xl text-white">
+              <span>Logged in as {session.user?.name}</span>
+            </p>
 
-        <Link
-          href={session ? "/api/auth/signout" : "/api/auth/signin"}
-          className="rounded-full font-semibold text-white no-underline"
-        >
-          {session ? "Sign out" : "Sign in"}
-        </Link>
+            <Link
+              href="/api/auth/signout"
+              className="rounded-xl border px-4 py-1 font-semibold text-white no-underline"
+            >
+              Sign out
+            </Link>
+          </div>
+        </div>
       </MainLayout>
     </HydrateClient>
   );
