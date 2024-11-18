@@ -49,16 +49,13 @@ export const authConfig: NextAuthConfig = {
           return null;
         }
 
-        const isValidPassword = bcrypt.compareSync(
-          cred.password,
-          user.password,
-        );
+        const isValidPassword = bcrypt.compareSync(cred.password, user.password);
 
         if (!isValidPassword) {
           return null;
         }
 
-        const { password, ...rest } = user;
+        const { password: _, ...rest } = user;
         return rest;
       },
     }),
