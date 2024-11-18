@@ -11,8 +11,6 @@ const Home = async () => {
     void api.post.getLatest.prefetch();
   }
 
-  console.log({ session });
-
   return (
     <HydrateClient>
       <div className="flex h-dvh flex-col items-center justify-center bg-gray-900">
