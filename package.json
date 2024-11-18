@@ -15,12 +15,13 @@
     "db:studio": "prisma studio",
     "postinstall": "prisma generate",
     "------------------------ Check scripts ------------------------": "",
-    "check": "next lint && tsc --noEmit",
-    "typecheck": "tsc --noEmit",
+    "tsc": "tsc --noEmit",
+    "tsw": "tsc-watch",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
-    "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache"
+    "format": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
+    "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
+    "check": "pnpm lint && pnpm format && pnpm tsc"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.2",
@@ -56,7 +57,8 @@
     "prisma": "^5.14.0",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.5.3",
-    "@types/bcrypt": "^5.0.2"
+    "@types/bcrypt": "^5.0.2",
+    "tsc-watch": "^6.2.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
