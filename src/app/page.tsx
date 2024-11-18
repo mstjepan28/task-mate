@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { auth } from "~/server/auth";
 import { HydrateClient } from "~/trpc/server";
 import { MainLayout } from "../components/layout/MainLayout";
@@ -6,9 +7,10 @@ import { MainLayout } from "../components/layout/MainLayout";
 const Home = async () => {
   const session = await auth();
 
-  // if (session?.user) {
-  //   void api.post.getLatest.prefetch();
-  // }
+  if (!session) {
+    redirect("/login");
+    return null;
+  }
 
   return (
     <HydrateClient>

@@ -12,13 +12,16 @@ const LoginPage = () => {
         </div>
 
         <form className="w-full max-w-80 rounded-xl border bg-gray-200 px-4 py-6">
-          <Label htmlFor="email">Email</Label>
-          <Input name="email" type="email" className="bg-white" />
+          <div className="pb-4">
+            <Label htmlFor="email">Email</Label>
+            <Input name="email" type="email" className="bg-white" />
+          </div>
 
-          <Label htmlFor="email">Password</Label>
-          <Input name="password" type="password" className="bg-white" />
+          <div className="pb-6">
+            <Label htmlFor="email">Password</Label>
+            <Input name="password" type="password" className="bg-white" />
+          </div>
 
-          <br />
           <Button className="w-full">Login</Button>
         </form>
       </div>
