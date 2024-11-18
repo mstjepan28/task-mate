@@ -1,11 +1,16 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { auth } from "~/server/auth";
+import { Button } from "~/components/ui/button";
+import { auth, signOut } from "~/server/auth";
 import { HydrateClient } from "~/trpc/server";
 import { MainLayout } from "../components/layout/MainLayout";
 
 const Home = async () => {
   const session = await auth();
+
+  const onSignOut = async () => {
+    "use server";
+    await signOut({ redirectTo: "/login" });
+  };
 
   if (!session) {
     redirect("/login");
@@ -15,17 +20,14 @@ const Home = async () => {
     <HydrateClient>
       <MainLayout>
         <div className="flex size-full items-center">
-          <div className="flex w-full flex-col items-center justify-center gap-y-2 rounded-lg bg-gray-900 py-6">
+          <div className="flex w-full flex-col items-center justify-center gap-y-2 rounded-lg bg-gray-900/25 py-6">
             <p className="text-center text-2xl text-white">
               <span>Logged in as {session.user?.name}</span>
             </p>
 
-            <Link
-              href="/api/auth/signout"
-              className="rounded-xl border px-4 py-1 font-semibold text-white no-underline"
-            >
+            <Button type="button" onClick={onSignOut}>
               Sign out
-            </Link>
+            </Button>
           </div>
         </div>
       </MainLayout>
