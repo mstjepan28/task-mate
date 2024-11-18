@@ -1,36 +1,29 @@
 import Link from "next/link";
-
 import { auth } from "~/server/auth";
-import { api, HydrateClient } from "~/trpc/server";
+import { HydrateClient } from "~/trpc/server";
+import { MainLayout } from "../components/layout/MainLayout";
 
 const Home = async () => {
-  const hello = await api.post.hello({ text: "from tRPC" });
   const session = await auth();
 
-  if (session?.user) {
-    void api.post.getLatest.prefetch();
-  }
+  // if (session?.user) {
+  //   void api.post.getLatest.prefetch();
+  // }
 
   return (
     <HydrateClient>
-      <div className="flex h-dvh flex-col items-center justify-center bg-gray-900">
-        <p className="text-2xl text-white">
-          {hello ? hello.greeting : "Loading tRPC query..."}
+      <MainLayout>
+        <p className="text-center text-2xl text-white">
+          {session && <span>Logged in as {session.user?.name}</span>}
         </p>
 
-        <div className="flex flex-col items-center justify-center gap-4">
-          <p className="text-center text-2xl text-white">
-            {session && <span>Logged in as {session.user?.name}</span>}
-          </p>
-
-          <Link
-            href={session ? "/api/auth/signout" : "/api/auth/signin"}
-            className="rounded-full font-semibold text-white no-underline"
-          >
-            {session ? "Sign out" : "Sign in"}
-          </Link>
-        </div>
-      </div>
+        <Link
+          href={session ? "/api/auth/signout" : "/api/auth/signin"}
+          className="rounded-full font-semibold text-white no-underline"
+        >
+          {session ? "Sign out" : "Sign in"}
+        </Link>
+      </MainLayout>
     </HydrateClient>
   );
 };
