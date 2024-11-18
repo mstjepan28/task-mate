@@ -34,7 +34,7 @@ export const authConfig: NextAuthConfig = {
           return null;
         }
 
-        const isSamePassword =  await bcrypt.compare(credentials.password, user.password)
+        const isSamePassword = await bcrypt.compare(credentials.password, user.password);
         if (!isSamePassword) {
           return null;
         }

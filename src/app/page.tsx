@@ -4,7 +4,7 @@ import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 
-export default async function Home() {
+const Home = async () => {
   const hello = await api.post.hello({ text: "from tRPC" });
   const session = await auth();
 
@@ -12,27 +12,28 @@ export default async function Home() {
     void api.post.getLatest.prefetch();
   }
 
+  console.log({ session });
+
   return (
     <HydrateClient>
-      <div className="flex flex-col items-center gap-2">
-        <p className="text-2xl text-white">
-          {hello ? hello.greeting : "Loading tRPC query..."}
-        </p>
+      <div className="flex h-dvh flex-col items-center justify-center bg-gray-900">
+        <p className="text-2xl text-white">{hello ? hello.greeting : "Loading tRPC query..."}</p>
 
         <div className="flex flex-col items-center justify-center gap-4">
-          <p className="text-center text-2xl text-white">
-            {session && <span>Logged in as {session.user?.name}</span>}
-          </p>
+          <p className="text-center text-2xl text-white">{session && <span>Logged in as {session.user?.name}</span>}</p>
+
           <Link
             href={session ? "/api/auth/signout" : "/api/auth/signin"}
-            className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+            className="rounded-full font-semibold text-white no-underline"
           >
             {session ? "Sign out" : "Sign in"}
           </Link>
         </div>
-      </div>
 
-      {session?.user && <LatestPost />}
+        {session?.user && <LatestPost />}
+      </div>
     </HydrateClient>
   );
-}
+};
+
+export default Home;
