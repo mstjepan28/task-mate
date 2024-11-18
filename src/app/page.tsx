@@ -9,7 +9,6 @@ const Home = async () => {
 
   if (!session) {
     redirect("/login");
-    return null;
   }
 
   return (
