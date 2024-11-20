@@ -104,6 +104,8 @@ enum RepeatCycle {
     DAILY
     WEEKLY
     MONTHLY
+    YEARLY
+    CUSTOM
 }
 
 enum Status {
