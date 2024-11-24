@@ -1,9 +1,9 @@
+import { faker } from "@faker-js/faker";
 import { createArray } from "~/utils/misc";
-import { setSeed } from "./helpers/faker";
 import { createFakeTask, createFakeTaskForBothUsers } from "./helpers/task";
-import { sharedSeedData } from "./sharedData.local";
+import { FAKER_SEED, sharedSeedData } from "./sharedData.local";
 
-setSeed();
+faker.seed(FAKER_SEED);
 
 const user1Id = sharedSeedData.users[0]?.id;
 const user2Id = sharedSeedData.users[1]?.id;

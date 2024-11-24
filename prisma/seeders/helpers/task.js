@@ -1,8 +1,11 @@
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
-import { TaskStatus } from "~/enums/taskStatus";
 import { RepeatCycle } from "~/enums/repeatCycle";
+import { TaskStatus } from "~/enums/taskStatus";
 import { deepCopy, objectValues } from "~/utils/objectHelpers";
+import { FAKER_SEED } from "../sharedData.local";
+
+faker.seed(FAKER_SEED);
 
 const repeatCycleArray = objectValues(RepeatCycle);
 const statusArray = objectValues(TaskStatus);
