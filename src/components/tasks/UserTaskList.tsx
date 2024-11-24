@@ -1,21 +1,14 @@
-import dayjs from "dayjs";
 import { api } from "~/trpc/server";
+import { TaskCard } from "./TaskCard";
 
 export const UserTaskList = async () => {
   const userTasks = await api.task.getUserTasks();
 
-  return userTasks.map((task) => {
-    return (
-      <div key={task.id} className="mb-1 flex w-full border-b border-gray-900 pb-1">
-        <div className="basis-full">
-          <div>{task.description}</div>
-        </div>
-
-        <div className="basis-full text-end">
-          <div>{dayjs(task.deadline).format("DD-MM-YYYY HH:mm")}</div>
-          <div>{task.points}</div>
-        </div>
-      </div>
-    );
-  });
+  return (
+    <div className="xs:grid-cols-2 grid grid-cols-1 gap-2 md:grid-cols-3">
+      {userTasks.map((task) => {
+        return <TaskCard key={task.id} task={task} />;
+      })}
+    </div>
+  );
 };

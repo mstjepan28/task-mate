@@ -1,11 +1,15 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import twAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      screens: {
+        xs: "380px",
+      },
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
       },
@@ -58,5 +62,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [twAnimate],
 } satisfies Config;
