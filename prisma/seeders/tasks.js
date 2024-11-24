@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { createArray } from "~/utils/misc";
-import { createFakeTask, createFakeTaskForBothUsers } from "./helpers/task";
-import { FAKER_SEED, sharedSeedData } from "./sharedData.local";
+import { createArray, createFakeTask, createFakeTaskForBothUsers } from "./helpers/task.js";
+import { FAKER_SEED, sharedSeedData } from "./sharedData.local.js";
 
 faker.seed(FAKER_SEED);
 

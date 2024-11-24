@@ -1,20 +1,31 @@
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
-import { RepeatCycle } from "~/enums/repeatCycle";
-import { TaskStatus } from "~/enums/taskStatus";
-import { deepCopy, objectValues } from "~/utils/objectHelpers";
-import { FAKER_SEED } from "../sharedData.local";
+import { FAKER_SEED } from "../sharedData.local.js";
+
+/**
+ * @typedef {import("../../../src/enums/repeatCycle").TRepeatCycle} Cycle
+ * @typedef {import("../../../src/enums/taskStatus").TTaskStatus} Status
+ * @typedef {import("../../../src/types/task").Task} Task
+ */
 
 faker.seed(FAKER_SEED);
 
-const repeatCycleArray = objectValues(RepeatCycle);
-const statusArray = objectValues(TaskStatus);
+/**
+ *
+ * @type {Cycle[]}
+ */
+const repeatCycleArray = ["never", "daily", "weekly", "monthly", "yearly", "custom"];
+/**
+ *
+ * @type {Status[]}
+ */
+const statusArray = ["pending", "started", "canceled", "done"];
 const today = dayjs().toDate();
 
 /**
  * @param {string} assignedTo
  * @param {string} assignedBy
- * @returns {import("../../../src/types/task").Task}
+ * @returns {Task}
  */
 export const createFakeTask = (assignedTo, assignedBy) => {
   return {
@@ -35,13 +46,29 @@ export const createFakeTask = (assignedTo, assignedBy) => {
 /**
  * @param {string} assignedTo
  * @param {string} assignedBy
- * @returns {import("../../../src/types/task").Task[]}
+ * @returns {Task[]}
  */
 export const createFakeTaskForBothUsers = (assignedTo, assignedBy) => {
   const task1 = createFakeTask(assignedTo, assignedBy);
 
-  const task2 = deepCopy(task1);
+  const task2 = copyTask(task1);
   task2.assignedTo = assignedTo;
 
   return [task1, task2];
 };
+
+/**
+ * @param {number} length
+ * @returns {undefined[]}
+ */
+export const createArray = (length) => {
+  return Array.from({ length });
+};
+
+/**
+ *
+ * @param {Task} obj
+ * @returns {Task}
+ */
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+const copyTask = (obj) => JSON.parse(JSON.stringify(obj));
