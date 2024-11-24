@@ -1,5 +1,3 @@
-export const FAKER_SEED = 12345;
-
 export const sharedSeedData = {
   users: [
     {
