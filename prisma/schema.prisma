@@ -86,4 +86,5 @@ enum Status {
     STARTED
     CANCELED
     DONE
+    FAILED
 }

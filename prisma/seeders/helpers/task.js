@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
-import { FAKER_SEED } from "../sharedData.local.js";
 
 /**
  * @typedef {import("../../../src/enums/repeatCycle").TRepeatCycle} Cycle
@@ -8,19 +7,16 @@ import { FAKER_SEED } from "../sharedData.local.js";
  * @typedef {import("../../../src/types/task").Task} Task
  */
 
-faker.seed(FAKER_SEED);
-
 /**
  *
  * @type {Cycle[]}
  */
-const repeatCycleArray = ["never", "daily", "weekly", "monthly", "yearly", "custom"];
+const repeatCycleArray = ["NEVER", "DAILY", "WEEKLY", "MONTHLY", "YEARLY", "CUSTOM"];
 /**
  *
  * @type {Status[]}
  */
-const statusArray = ["pending", "started", "canceled", "done"];
-const today = dayjs().toDate();
+const statusArray = ["PENDING", "STARTED", "CANCELED", "DONE", "FAILED"];
 
 /**
  * @param {string} assignedTo
@@ -34,11 +30,11 @@ export const createFakeTask = (assignedTo, assignedBy) => {
     description: faker.word.sample(),
     repeatCycle: faker.helpers.arrayElement(repeatCycleArray),
     status: faker.helpers.arrayElement(statusArray),
-    deadline: dayjs().add(1, "month").toDate(),
+    deadline: new Date(dayjs().add(1, "month").toDate()),
     assignedTo: assignedTo,
     assignedBy: assignedBy,
-    createdAt: today,
-    updatedAt: today,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     deletedAt: null,
   };
 };
@@ -52,6 +48,8 @@ export const createFakeTaskForBothUsers = (assignedTo, assignedBy) => {
   const task1 = createFakeTask(assignedTo, assignedBy);
 
   const task2 = copyTask(task1);
+
+  task2.id = faker.string.uuid();
   task2.assignedTo = assignedTo;
 
   return [task1, task2];

@@ -1,8 +1,8 @@
-import { faker } from "@faker-js/faker";
+import { PrismaClient } from "@prisma/client";
 import { createArray, createFakeTask, createFakeTaskForBothUsers } from "./helpers/task.js";
-import { FAKER_SEED, sharedSeedData } from "./sharedData.local.js";
+import { sharedSeedData } from "./sharedData.local.js";
 
-faker.seed(FAKER_SEED);
+const prisma = new PrismaClient();
 
 const user1Id = sharedSeedData.users[0]?.id;
 const user2Id = sharedSeedData.users[1]?.id;
@@ -58,10 +58,20 @@ async function main() {
   }, emptyTaskList);
 
   const fullTaskList = [...tasks1, ...tasks2, ...tasks3, ...tasks4];
-  console.log(fullTaskList);
+
+  await prisma.task.createMany({
+    data: fullTaskList,
+  });
+
+  console.log(`Successfully seeded tasks(${fullTaskList.length})`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+main()
+  .catch((e) => {
+    console.error("Error seeding tasks: ", e);
+    process.exit(1);
+  })
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

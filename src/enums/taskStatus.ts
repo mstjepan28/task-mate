@@ -1,8 +1,9 @@
 export const TaskStatus = {
-  PENDING: "pending",
-  STARTED: "started",
-  CANCELED: "canceled",
-  DONE: "done",
+  PENDING: "PENDING",
+  STARTED: "STARTED",
+  CANCELED: "CANCELED",
+  DONE: "DONE",
+  FAILED: "FAILED",
 } as const;
 
 export type TTaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus];

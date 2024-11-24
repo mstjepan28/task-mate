@@ -1,10 +1,10 @@
 export const RepeatCycle = {
-  NEVER: "never",
-  DAILY: "daily",
-  WEEKLY: "weekly",
-  MONTHLY: "monthly",
-  YEARLY: "yearly",
-  CUSTOM: "custom",
+  NEVER: "NEVER",
+  DAILY: "DAILY",
+  WEEKLY: "WEEKLY",
+  MONTHLY: "MONTHLY",
+  YEARLY: "YEARLY",
+  CUSTOM: "CUSTOM",
 } as const;
 
 export type TRepeatCycle = (typeof RepeatCycle)[keyof typeof RepeatCycle];

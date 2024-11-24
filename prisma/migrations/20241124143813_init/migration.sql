@@ -1,19 +1,8 @@
 -- CreateEnum
-CREATE TYPE "RepeatCycle" AS ENUM ('NEVER', 'DAILY', 'WEEKLY', 'MONTHLY');
+CREATE TYPE "RepeatCycle" AS ENUM ('NEVER', 'DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY', 'CUSTOM');
 
 -- CreateEnum
-CREATE TYPE "Status" AS ENUM ('PENDING', 'STARTED', 'CANCELED', 'DONE');
-
--- CreateTable
-CREATE TABLE "Post" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "createdById" TEXT NOT NULL,
-
-    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
-);
+CREATE TYPE "Status" AS ENUM ('PENDING', 'STARTED', 'CANCELED', 'DONE', 'FAILED');
 
 -- CreateTable
 CREATE TABLE "Account" (
@@ -51,6 +40,7 @@ CREATE TABLE "User" (
     "email" TEXT,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
+    "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -71,24 +61,13 @@ CREATE TABLE "Task" (
     "status" "Status" NOT NULL,
     "deadline" TIMESTAMP(3) NOT NULL,
     "assignedBy" TEXT NOT NULL,
+    "assignedTo" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
-
--- CreateTable
-CREATE TABLE "TaskAssignment" (
-    "id" TEXT NOT NULL,
-    "taskId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-
-    CONSTRAINT "TaskAssignment_pkey" PRIMARY KEY ("id")
-);
-
--- CreateIndex
-CREATE INDEX "Post_name_idx" ON "Post"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
@@ -108,17 +87,8 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 -- CreateIndex
 CREATE INDEX "Task_status_idx" ON "Task"("status");
 
--- CreateIndex
-CREATE INDEX "TaskAssignment_taskId_userId_idx" ON "TaskAssignment"("taskId", "userId");
-
--- AddForeignKey
-ALTER TABLE "Post" ADD CONSTRAINT "Post_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "TaskAssignment" ADD CONSTRAINT "TaskAssignment_taskId_fkey" FOREIGN KEY ("taskId") REFERENCES "Task"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
