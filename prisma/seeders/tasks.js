@@ -2,6 +2,10 @@ import { PrismaClient } from "@prisma/client";
 import { createArray, createFakeTask, createFakeTaskForBothUsers } from "./helpers/task.js";
 import { sharedSeedData } from "./sharedData.local.js";
 
+/**
+ * @typedef {import("../../src/types/task").Task} Task
+ */
+
 const prisma = new PrismaClient();
 
 const user1Id = sharedSeedData.users[0]?.id;
@@ -13,7 +17,7 @@ async function main() {
   }
 
   /**
-   * @type {import("../../src/types/task").Task[]}
+   * @type {Task[]}
    */
   const emptyTaskList = [];
 
