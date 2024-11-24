@@ -7,24 +7,9 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
-
-// Necessary for Next auth
 model Account {
     id                       String  @id @default(cuid())
     userId                   String
@@ -61,7 +46,6 @@ model User {
     password      String
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
 }
 
 model VerificationToken {
@@ -80,23 +64,12 @@ model Task {
     status      Status
     deadline    DateTime
     assignedBy  String
+    assignedTo  String
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
     deletedAt   DateTime?
 
-    assignedTo TaskAssignment[]
-
     @@index([status])
-}
-
-model TaskAssignment {
-    id     String @id @default(uuid())
-    taskId String
-    userId String
-
-    task Task @relation(fields: [taskId], references: [id])
-
-    @@index([taskId, userId])
 }
 
 enum RepeatCycle {
