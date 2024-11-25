@@ -10,7 +10,7 @@ export const MainLayout = async ({ children }: IProps) => {
 
   return (
     <div className="flex h-dvh max-h-dvh min-h-dvh w-full flex-col text-gray-900">
-      <div className="basis-full overflow-y-auto p-2">{children}</div>
+      <div className="basis-full overflow-y-auto">{children}</div>
       {session && <BottomNav />}
     </div>
   );
