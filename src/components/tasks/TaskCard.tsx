@@ -1,5 +1,6 @@
 import type { Task } from "@prisma/client";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { TaskStatus } from "~/enums/taskStatus";
 
 export const TaskCard = ({ task }: { task: Task }) => {
@@ -20,13 +21,16 @@ export const TaskCard = ({ task }: { task: Task }) => {
   }[task.status];
 
   return (
-    <div key={task.id} className={`w-full rounded-lg border-2 px-2 py-2 shadow-sm sm:min-w-0 ${card}`}>
+    <Link
+      href={`/task/edit/${task.id}`}
+      className={`w-full rounded-lg border-2 px-2 py-2 shadow-sm sm:min-w-0 ${card}`}
+    >
       <div className="flex justify-between text-sm">
         <div className={`font-semibold ${text}`}>{task.status}</div>
         <div className="italic">{dayjs(task.deadline).format("DD-MM-YY")}</div>
       </div>
 
       <div className="font-semibold">{task.description}</div>
-    </div>
+    </Link>
   );
 };
