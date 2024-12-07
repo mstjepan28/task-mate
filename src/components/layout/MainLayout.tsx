@@ -1,11 +1,7 @@
 import { auth } from "~/server/auth";
 import { BottomNav } from "./BottomNav";
 
-interface IProps {
-  children: React.ReactNode;
-}
-
-export const MainLayout = async ({ children }: IProps) => {
+export const MainLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
 
   return (
