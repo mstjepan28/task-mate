@@ -2,8 +2,9 @@ import { TaskForm } from "~/components/form/TaskForm";
 import { CreateEditLayout } from "~/components/layout/CreateEditLayout";
 import { api } from "~/trpc/server";
 
-export default async function EditTaskPage({ params }: { params: { taskId: string } }) {
-  const task = await api.task.getTaskById({ id: params.taskId });
+export default async function EditTaskPage({ params }: { params: Promise<{ taskId: string }> }) {
+  const taskId = (await params).taskId;
+  const task = await api.task.getTaskById({ id: taskId });
 
   return (
     <CreateEditLayout title={"Edit Task"}>
