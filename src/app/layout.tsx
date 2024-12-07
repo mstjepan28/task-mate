@@ -17,7 +17,7 @@ interface IProps {
 
 export default function RootLayout({ children }: IProps) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} fixed inset-0`}>
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
