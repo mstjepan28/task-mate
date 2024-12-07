@@ -3,6 +3,9 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { TaskStatus } from "~/enums/taskStatus";
+import advancedFormat from "dayjs/plugin/advancedFormat"; // ES 2015
+
+dayjs.extend(advancedFormat);
 
 export const TaskCard = ({ task }: { task: Task }) => {
   const statusStyle = {
@@ -20,7 +23,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
     >
       <div className="flex justify-between pb-2 text-xs">
         <div className={twMerge("rounded-lg px-2", statusStyle)}>{task.status}</div>
-        <div>{dayjs(task.deadline).format("DD-MM-YY")}</div>
+        <div>{dayjs(task.deadline).format("MMMM Do, YYYY")}</div>
       </div>
 
       <div className="font-medium">{task.description}</div>
