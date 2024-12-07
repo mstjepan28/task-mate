@@ -1,24 +1,39 @@
 "use client";
 
-import Link from "next/link";
-import { HiChevronLeft } from "react-icons/hi";
+import { useActionState } from "react";
+import { submitTaskAction } from "~/actions/taskActions";
+import type { NewTask } from "~/types/task";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
 
-interface IProps {
-  edit?: boolean;
-}
+const field = {
+  description: "description",
+  points: "points",
+  repeatCycle: "repeatCycle",
+  status: "status",
+  deadline: "deadline",
+  assignedTo: "assignedTo",
+} as const;
 
-export const TaskForm = ({ edit }: IProps) => {
+export const TaskForm = ({ task }: { task: NewTask }) => {
+  const [_, action] = useActionState(submitTaskAction, { task });
+
   return (
-    <div className="flex min-h-full flex-col">
-      <div className="flex items-center gap-x-2 border-b border-gray-900 px-2 py-3">
-        <Link href="/">
-          <HiChevronLeft className="" size={24} />
-        </Link>
-
-        <span className="text-lg font-semibold">{edit ? "Edit task" : "Create task"}</span>
+    <form action={action} className="flex flex-col gap-y-2 bg-red-600">
+      <div>
+        <Label>Task name</Label>
+        <Input name={field.description} defaultValue={task[field.description]}></Input>
       </div>
 
-      <div className="basis-full"></div>
-    </div>
+      <div>
+        <Label>Task name</Label>
+        <Input defaultValue={task.description}></Input>
+      </div>
+
+      <Button type="submit" className="rounded-lg bg-blue-600 py-2 font-semibold text-white shadow-md">
+        Submit
+      </Button>
+    </form>
   );
 };

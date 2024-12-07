@@ -1,12 +1,15 @@
 import { TaskForm } from "~/components/form/TaskForm";
 import { MainLayout } from "~/components/layout/MainLayout";
+import { ScreenHeader } from "~/components/layout/ScreenHeader";
 
-const CreateTaskPage = () => {
+export default async function CreateTaskPage() {
   return (
     <MainLayout>
-      <TaskForm />
+      <ScreenHeader title={"New Task"} />
+
+      <div className="flex min-h-full flex-col">
+        <TaskForm />
+      </div>
     </MainLayout>
   );
-};
-
-export default CreateTaskPage;
+}
