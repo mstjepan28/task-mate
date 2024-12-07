@@ -3,8 +3,9 @@
 import dayjs from "dayjs";
 import { useActionState, useRef } from "react";
 import { submitTaskAction } from "~/actions/taskActions";
-import type { TOverlayRef } from "~/types/OverlayElement";
+import type { TOverlayRef } from "~/types/overlayElement";
 import type { NewTask } from "~/types/task";
+import { DatePicker } from "../datepicker/pickers/DatePicker";
 import { BaseModal } from "../modal/BaseModal";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -29,8 +30,6 @@ export const TaskForm = ({ task }: { task?: NewTask }) => {
 
   return (
     <>
-      <BaseModal ref={datePickerRef}>date picker</BaseModal>
-
       <form action={action} className="flex basis-full flex-col gap-y-4 py-4">
         <div>
           <Label>Description</Label>
@@ -50,16 +49,14 @@ export const TaskForm = ({ task }: { task?: NewTask }) => {
           />
         </div>
 
-        <button type="button" className="block text-start" onClick={openDatePicker}>
+        <div>
           <Label>Deadline</Label>
-          <Input
+          <DatePicker
             name={field.deadline}
             placeholder="Date until this task should be completed."
-            defaultValue={task?.[field.deadline] ? dayjs(task?.[field.deadline]).format("DD/MM/YYYY") : ""}
-            className="pointer-events-none"
-            readOnly
+            initDate={task?.[field.deadline] ? dayjs(task?.[field.deadline]) : undefined}
           />
-        </button>
+        </div>
 
         <div className="mt-auto">
           <Button type="submit" className="w-full">
