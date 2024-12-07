@@ -5,10 +5,12 @@ import { ScreenHeader } from "~/components/layout/ScreenHeader";
 export default async function CreateTaskPage() {
   return (
     <MainLayout>
-      <ScreenHeader title={"New Task"} />
+      <div className="flex h-full flex-col">
+        <ScreenHeader title={"Edit Task"} />
 
-      <div className="flex min-h-full flex-col">
-        <TaskForm />
+        <div className="flex basis-full flex-col px-2">
+          <TaskForm />
+        </div>
       </div>
     </MainLayout>
   );

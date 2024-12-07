@@ -1,8 +1,6 @@
 "use server";
 
-import type { NewTask } from "~/types/task";
-
-export const submitTaskAction = async (task: NewTask) => {
-  console.log("Task submitted", task);
+export const submitTaskAction = async () => {
+  console.log("Task submitted");
   return { success: true };
 };
