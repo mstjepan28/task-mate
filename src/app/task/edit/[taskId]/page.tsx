@@ -4,10 +4,11 @@ import { api } from "~/trpc/server";
 
 export default async function EditTaskPage({ params }: { params: Promise<{ taskId: string }> }) {
   const taskId = (await params).taskId;
+
   const task = await api.task.getTaskById({ id: taskId });
 
   return (
-    <CreateEditLayout title={"Edit Task"}>
+    <CreateEditLayout title="Edit Task">
       {task ? <TaskForm task={task} /> : <div>404 - Task not found</div>}
     </CreateEditLayout>
   );

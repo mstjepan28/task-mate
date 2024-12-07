@@ -1,12 +1,11 @@
 "use client";
 
 import dayjs from "dayjs";
-import { useActionState, useRef } from "react";
+import { useActionState } from "react";
 import { submitTaskAction } from "~/actions/taskActions";
-import type { TOverlayRef } from "~/types/overlayElement";
 import type { NewTask } from "~/types/task";
 import { DatePicker } from "../datepicker/pickers/DatePicker";
-import { BaseModal } from "../modal/BaseModal";
+import { RepeatCycleSelect } from "../SelectRepeatCycle";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -21,12 +20,7 @@ const field = {
 } as const;
 
 export const TaskForm = ({ task }: { task?: NewTask }) => {
-  const [_, action] = useActionState(submitTaskAction, { success: false });
-  const datePickerRef = useRef(null) as TOverlayRef;
-
-  const openDatePicker = () => {
-    datePickerRef.current?.open();
-  };
+  const [_, action] = useActionState(submitTaskAction, task ?? null);
 
   return (
     <>
@@ -56,6 +50,11 @@ export const TaskForm = ({ task }: { task?: NewTask }) => {
             placeholder="Date until this task should be completed."
             initDate={task?.[field.deadline] ? dayjs(task?.[field.deadline]) : undefined}
           />
+        </div>
+
+        <div>
+          <Label>Repeat cycle</Label>
+          <RepeatCycleSelect name={field.repeatCycle} />
         </div>
 
         <div className="mt-auto">

@@ -1,10 +1,12 @@
+"use client";
+
 import type { Dayjs } from "dayjs";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { BaseModal } from "~/components/modal/BaseModal";
 import { Input } from "~/components/ui/input";
 import { removeActiveFocus } from "~/lib/clientHelpers";
-import type { TOverlayRef } from "~/types/overlayElement";
+import type { TOverlayRef } from "~/types/OverlayElement";
 import { DayPicker } from "./DayPicker";
 import { MonthPicker } from "./MonthPicker";
 import { YearPicker } from "./YearPicker";
