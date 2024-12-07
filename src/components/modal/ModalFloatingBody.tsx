@@ -7,25 +7,24 @@ export const ModalFloatingBody = ({
   classNameBody,
   classNameBackdrop,
   children,
-  closeOnOutsideClick,
   disableClosing,
 }: IModalBodyProps) => {
   const onBackdropClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
-    if (closeOnOutsideClick && !disableClosing) {
+    if (!disableClosing) {
       close();
     }
   };
 
-  const customStyles = `${isOpen ? "flex" : "hidden"} ${closeOnOutsideClick ? "cursor-pointer" : ""}`;
+  const customStyles = `${isOpen ? "flex" : "hidden"} ${disableClosing ? "cursor-pointer" : ""}`;
 
   return (
     <div
       data-open={!!isOpen}
-      data-clickable={closeOnOutsideClick}
+      data-clickable={!disableClosing}
       onClick={onBackdropClick}
       className={twMerge(
-        `fixed inset-0 items-center justify-center z-50 bg-black/40 ${customStyles}`,
+        `fixed inset-0 z-50 items-center justify-center bg-black/40 ${customStyles}`,
         classNameBackdrop,
       )}
     >

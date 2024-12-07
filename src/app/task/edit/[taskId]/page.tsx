@@ -8,10 +8,12 @@ export default async function EditTaskPage({ params }: { params: { taskId: strin
 
   return (
     <MainLayout>
-      <ScreenHeader title={"Edit Task"} />
+      <div className="flex h-full flex-col">
+        <ScreenHeader title={"Edit Task"} />
 
-      <div className="flex min-h-full flex-col px-2">
-        {task ? <TaskForm task={task} /> : <div>404 - Task not found</div>}
+        <div className="flex basis-full flex-col px-2">
+          {task ? <TaskForm task={task} /> : <div>404 - Task not found</div>}
+        </div>
       </div>
     </MainLayout>
   );

@@ -52,7 +52,6 @@ export const BaseModal = forwardRef(function BaseModal(props: IModalProps, ref) 
       classNameBody={props.classNameBody}
       disableClosing={props.disableClosing}
       classNameBackdrop={props.classNameBackdrop}
-      closeOnOutsideClick={props.closeOnOutsideClick}
       animationDuration={skipAnimationRef.current ? "0ms" : props.animationDuration}
     >
       {props.children}

@@ -9,7 +9,6 @@ export const ModalPopupBody = ({
   classNameBody,
   classNameBackdrop,
   children,
-  closeOnOutsideClick,
   disableClosing,
   animationDuration,
 }: IModalBodyProps) => {
@@ -73,14 +72,15 @@ export const ModalPopupBody = ({
 
   const onBackdropClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
-    if (closeOnOutsideClick && !disableClosing) {
+    if (!disableClosing) {
       close();
     }
   };
 
-  const customStyles = `${isOpen ? "pointer-events-auto bg-black/40" : "pointer-events-none"} ${
-    closeOnOutsideClick ? "cursor-pointer" : ""
-  }`;
+  const customStyles = `
+    ${isOpen ? "pointer-events-auto bg-black/40" : "pointer-events-none"} 
+    ${!disableClosing ? "cursor-pointer" : ""}
+  `;
 
   /**
    * - Check if the targeted element is inside of a scrollable container

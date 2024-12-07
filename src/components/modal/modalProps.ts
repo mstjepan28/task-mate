@@ -7,7 +7,6 @@ interface IBaseModalProps {
   classNameBody?: string;
   disableClosing?: boolean;
   classNameBackdrop?: string;
-  closeOnOutsideClick?: boolean;
   animationDuration?: `${number}ms`;
 }
 

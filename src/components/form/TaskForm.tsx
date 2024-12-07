@@ -1,10 +1,13 @@
 "use client";
 
-import { useActionState } from "react";
+import dayjs from "dayjs";
+import { useActionState, useRef } from "react";
 import { submitTaskAction } from "~/actions/taskActions";
+import type { TOverlayRef } from "~/types/OverlayElement";
 import type { NewTask } from "~/types/task";
-import { Input } from "../ui/input";
+import { BaseModal } from "../modal/BaseModal";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 const field = {
@@ -18,22 +21,38 @@ const field = {
 
 export const TaskForm = ({ task }: { task: NewTask }) => {
   const [_, action] = useActionState(submitTaskAction, { task });
+  const datePickerRef = useRef(null) as TOverlayRef;
+
+  const openDatePicker = () => {
+    datePickerRef.current?.open();
+  };
 
   return (
-    <form action={action} className="flex flex-col gap-y-2 bg-red-600">
-      <div>
-        <Label>Task name</Label>
-        <Input name={field.description} defaultValue={task[field.description]}></Input>
-      </div>
+    <>
+      <BaseModal ref={datePickerRef}>date picker</BaseModal>
 
-      <div>
-        <Label>Task name</Label>
-        <Input defaultValue={task.description}></Input>
-      </div>
+      <form action={action} className="flex basis-full flex-col gap-y-2 py-4">
+        <div>
+          <Label>Task name</Label>
+          <Input name={field.description} defaultValue={task[field.description]} />
+        </div>
 
-      <Button type="submit" className="rounded-lg bg-blue-600 py-2 font-semibold text-white shadow-md">
-        Submit
-      </Button>
-    </form>
+        <div>
+          <Label>Task name</Label>
+          <Input name={field.points} defaultValue={task[field.points]} />
+        </div>
+
+        <button type="button" className="block text-start" onClick={openDatePicker}>
+          <Label>Task name</Label>
+          <Input name={field.deadline} defaultValue={dayjs(task[field.deadline]).format("DD/MM/YYYY")} readOnly />
+        </button>
+
+        <div className="mt-auto">
+          <Button type="submit" className="w-full">
+            Submit
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
