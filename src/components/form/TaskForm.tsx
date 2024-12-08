@@ -4,13 +4,14 @@ import dayjs from "dayjs";
 import { useActionState } from "react";
 import { submitTaskAction } from "~/actions/taskActions";
 import type { NewTask } from "~/types/task";
-import type { TFriend } from "~/types/user";
+import type { TBasicDataUser } from "~/types/user";
 import { DatePicker } from "../datepicker/pickers/DatePicker";
-import { RepeatCycleSelect } from "../SelectRepeatCycle";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { SelectUser } from "../dropdowns/SelectUser";
+import { SelectRepeatCycle } from "../dropdowns/SelectRepeatCycle";
 
 const field = {
   description: "description",
@@ -21,7 +22,7 @@ const field = {
   assignedTo: "assignedTo",
 } as const;
 
-export const TaskForm = ({ task, friendList }: { task?: NewTask; friendList: TFriend[] }) => {
+export const TaskForm = ({ task, assignToList }: { task?: NewTask; assignToList: TBasicDataUser[] }) => {
   const [_, action] = useActionState(submitTaskAction, task ?? null);
 
   return (
@@ -57,7 +58,12 @@ export const TaskForm = ({ task, friendList }: { task?: NewTask; friendList: TFr
 
         <div>
           <Label>Repeat cycle</Label>
-          <RepeatCycleSelect name={field.repeatCycle} />
+          <SelectRepeatCycle name={field.repeatCycle} />
+        </div>
+
+        <div>
+          <Label>Assign to</Label>
+          <SelectUser name={field.assignedTo} userList={assignToList} />
         </div>
 
         <div className="mt-auto">

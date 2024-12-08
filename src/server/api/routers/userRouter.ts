@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import type { TFriend } from "~/types/user";
+import type { TBasicDataUser } from "~/types/user";
 
 export const userRouter = createTRPCRouter({
   getAuthUserFriends: protectedProcedure.query(async ({ ctx }) => {
@@ -21,7 +21,7 @@ export const userRouter = createTRPCRouter({
       },
     });
 
-    return userList.map((user): TFriend => {
+    return userList.map((user): TBasicDataUser => {
       return {
         id: user.id,
         name: user.name,

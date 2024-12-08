@@ -1,8 +1,8 @@
 import { RepeatCycle } from "~/enums/repeatCycle";
 import { objectValues } from "~/lib/objectHelpers";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
-export const RepeatCycleSelect = ({ name }: { name: string }) => {
+export const SelectRepeatCycle = ({ name }: { name: string }) => {
   return (
     <Select name={name}>
       <SelectTrigger>

@@ -1,13 +1,13 @@
 import { TaskForm } from "~/components/form/TaskForm";
 import { CreateEditLayout } from "~/components/layout/CreateEditLayout";
-import { api } from "~/trpc/server";
+import { getFriendListWithAuthUser } from "~/lib/serverHelpers";
 
 export default async function CreateTaskPage() {
-  const friendList = await api.user.getAuthUserFriends();
+  const assignToList = await getFriendListWithAuthUser();
 
   return (
     <CreateEditLayout title={"New Task"}>
-      <TaskForm friendList={friendList} />
+      <TaskForm assignToList={assignToList} />
     </CreateEditLayout>
   );
 }
