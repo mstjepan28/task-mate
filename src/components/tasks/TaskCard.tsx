@@ -21,7 +21,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
       href={`/task/edit/${task.id}`}
       className="w-full rounded-lg border border-primary bg-white p-2 text-primary sm:min-w-0"
     >
-      <div className="flex justify-between pb-2 text-xs">
+      <div className="flex items-start justify-between gap-x-2 pb-2 text-xs">
         <div className={twMerge("rounded-lg px-2", statusStyle)}>{task.status}</div>
         <div>{dayjs(task.deadline).format("MMMM Do, YYYY")}</div>
       </div>
