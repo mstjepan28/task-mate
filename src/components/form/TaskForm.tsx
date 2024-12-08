@@ -3,6 +3,7 @@
 import dayjs from "dayjs";
 import { useActionState } from "react";
 import { submitTaskAction } from "~/actions/taskActions";
+import { RepeatCycle } from "~/enums/repeatCycle";
 import type { NewTask } from "~/types/task";
 import type { TBasicDataUser } from "~/types/user";
 import { DatePicker } from "../datepicker/pickers/DatePicker";
@@ -11,7 +12,6 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { RepeatCycle } from "~/enums/repeatCycle";
 
 const field = {
   description: "description",
@@ -65,7 +65,7 @@ export const TaskForm = ({ task, assignToList }: { task?: NewTask; assignToList:
 
         <div>
           <Label>Assign to</Label>
-          <SelectUser name={field.assignedTo} userList={assignToList} />
+          <SelectUser name={field.assignedTo} defaultValue={task?.[field.assignedTo]} userList={assignToList} />
         </div>
 
         <div className="mt-auto">
