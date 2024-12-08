@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { useActionState } from "react";
 import { submitTaskAction } from "~/actions/taskActions";
 import { RepeatCycle } from "~/enums/repeatCycle";
-import type { NewTask } from "~/types/task";
+import type { Task } from "~/types/task";
 import type { TBasicDataUser } from "~/types/user";
 import { DatePicker } from "../datepicker/pickers/DatePicker";
 import { SelectUser } from "../dropdowns/SelectUser";
@@ -22,8 +22,8 @@ const field = {
   assignedTo: "assignedTo",
 } as const;
 
-export const TaskForm = ({ task, assignToList }: { task?: NewTask; assignToList: TBasicDataUser[] }) => {
-  const [_, action] = useActionState(submitTaskAction, task ?? null);
+export const TaskForm = ({ task, assignToList }: { task?: Task; assignToList: TBasicDataUser[] }) => {
+  const [_, action] = useActionState(submitTaskAction, task?.id ?? null);
 
   return (
     <>
