@@ -15,4 +15,4 @@ export type Task = {
   deletedAt?: Date | null;
 };
 
-export type NewTask = Omit<Task, "id" | "createdAt" | "updatedAt" | "deletedAt">;
+export type NewTask = Omit<Task, "id" | "assignedBy" | "createdAt" | "updatedAt" | "deletedAt">;
