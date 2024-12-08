@@ -6,10 +6,11 @@ export default async function EditTaskPage({ params }: { params: Promise<{ taskI
   const taskId = (await params).taskId;
 
   const task = await api.task.getTaskById({ id: taskId });
+  const friendList = await api.user.getAuthUserFriends();
 
   return (
     <CreateEditLayout title="Edit Task">
-      {task ? <TaskForm task={task} /> : <div>404 - Task not found</div>}
+      {task ? <TaskForm task={task} friendList={friendList} /> : <div>404 - Task not found</div>}
     </CreateEditLayout>
   );
 }
