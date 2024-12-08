@@ -46,6 +46,8 @@ model User {
     password      String
     accounts      Account[]
     sessions      Session[]
+    friends       Friendship[]  @relation("UserFriends")
+    friendOf      Friendship[]  @relation("UserFriendOf")
 }
 
 model VerificationToken {
@@ -70,6 +72,17 @@ model Task {
     deletedAt   DateTime?
 
     @@index([status])
+}
+
+model Friendship {
+    id        String   @id @default(uuid())
+    userId    String
+    friendId  String
+    user      User     @relation("UserFriends", fields: [userId], references: [id])
+    friend    User     @relation("UserFriendOf", fields: [friendId], references: [id])
+    createdAt DateTime @default(now())
+
+    @@unique([userId, friendId])
 }
 
 enum RepeatCycle {
