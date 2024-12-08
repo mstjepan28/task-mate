@@ -9,6 +9,10 @@ export const userRouter = createTRPCRouter({
       where: { userId },
     });
 
+    if (friends.length === 0) {
+      return [];
+    }
+
     const userList = await ctx.db.user.findMany({
       where: {
         id: {
