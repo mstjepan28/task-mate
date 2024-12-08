@@ -6,12 +6,12 @@ import { submitTaskAction } from "~/actions/taskActions";
 import type { NewTask } from "~/types/task";
 import type { TBasicDataUser } from "~/types/user";
 import { DatePicker } from "../datepicker/pickers/DatePicker";
+import { SelectUser } from "../dropdowns/SelectUser";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { SelectUser } from "../dropdowns/SelectUser";
-import { SelectRepeatCycle } from "../dropdowns/SelectRepeatCycle";
+import { RepeatCycle } from "~/enums/repeatCycle";
 
 const field = {
   description: "description",
@@ -56,10 +56,12 @@ export const TaskForm = ({ task, assignToList }: { task?: NewTask; assignToList:
           />
         </div>
 
-        <div>
+        {/* <div>
           <Label>Repeat cycle</Label>
           <SelectRepeatCycle name={field.repeatCycle} />
-        </div>
+        </div> */}
+
+        <input name={field.repeatCycle} defaultValue={RepeatCycle.NEVER} className="sr-only" hidden />
 
         <div>
           <Label>Assign to</Label>
