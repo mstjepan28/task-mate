@@ -1,6 +1,5 @@
 import { createArray, getRandomArrayElement } from "~/lib/utils";
-
-export type TGameBoard = number[][];
+import type { TGameBoard } from "./types";
 
 export const getRandomEmptyTile = (gameBoard: TGameBoard) => {
   const emptyTiles: [number, number][] = [];
