@@ -24,13 +24,10 @@ export const createNewTile = (gameBoard: TGameBoard) => {
 
   const [x, y] = emptyTile;
 
-  console.log("Creating new tile at", x, y);
-  console.log(gameBoard[x]?.[y]);
-
   if (gameBoard[x]?.[y] !== undefined) {
     /**
-     * 2 - 75%
-     * 4 - 25%
+     * number 2 - 75%
+     * number 4 - 25%
      */
     gameBoard[x][y] = getRandomArrayElement([2, 2, 2, 4]);
     return gameBoard;

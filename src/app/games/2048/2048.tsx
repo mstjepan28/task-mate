@@ -4,9 +4,16 @@ import { useCallback, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { createArray } from "~/lib/utils";
 import { type TGameBoard, createGameBoard, createNewTile } from "./helpers";
+import { useTouchControls } from "./useTouchControls";
 
 export const Game2048 = () => {
   const [board, setBoard] = useState<TGameBoard>([[]]);
+  const touchControls = useTouchControls({
+    onMoveUp: () => console.log("onMoveUp"),
+    onMoveDown: () => console.log("onMoveDown"),
+    onMoveLeft: () => console.log("onMoveLeft"),
+    onMoveRight: () => console.log("onMoveRight"),
+  });
 
   const onBoardMount = useCallback(() => {
     const gameBoard = createGameBoard(4);
@@ -16,7 +23,11 @@ export const Game2048 = () => {
   }, []);
 
   return (
-    <div ref={onBoardMount} className="grid grid-cols-4 grid-rows-4 gap-2 rounded-lg border bg-primary p-2">
+    <div
+      ref={onBoardMount}
+      {...touchControls}
+      className="grid grid-cols-4 grid-rows-4 gap-2 rounded-lg border bg-primary p-2"
+    >
       {createArray(4).map((_, i) => {
         return createArray(4).map((_, j) => {
           const key = `${i}-${j}`;
@@ -50,7 +61,7 @@ const Tile = ({ value }: { value: number }) => {
         bgColor,
       )}
     >
-      {value}
+      <span className="text-2xl font-bold text-white">{value || ""}</span>
     </div>
   );
 };
