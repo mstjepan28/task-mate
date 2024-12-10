@@ -1,11 +1,7 @@
 import { useRef } from "react";
+import type { TMoveEvents } from "./types";
 
-export const useTouchControls = (moveCallbacks: {
-  onMoveUp: () => void;
-  onMoveDown: () => void;
-  onMoveLeft: () => void;
-  onMoveRight: () => void;
-}) => {
+export const useTouchControls = (moveCallbacks: TMoveEvents) => {
   const startPositionRef = useRef({ x: 0, y: 0 });
   const executeMoveRef = useRef<(() => void) | null>(null);
 
@@ -45,5 +41,5 @@ export const useTouchControls = (moveCallbacks: {
         executeMoveRef.current();
       }
     },
-  };
+  } satisfies Partial<React.HTMLAttributes<HTMLDivElement>>;
 };

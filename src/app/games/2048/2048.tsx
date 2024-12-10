@@ -3,17 +3,13 @@
 import { useCallback, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { createArray } from "~/lib/utils";
-import { type TGameBoard, createGameBoard, createNewTile } from "./helpers";
+import { createGameBoard, createNewTile } from "./helpers";
+import type { TGameBoard, TMoveEvents } from "./types";
+import { useKeyboardControls } from "./useKeyboardControls";
 import { useTouchControls } from "./useTouchControls";
 
 export const Game2048 = () => {
   const [board, setBoard] = useState<TGameBoard>([[]]);
-  const touchControls = useTouchControls({
-    onMoveUp: () => console.log("onMoveUp"),
-    onMoveDown: () => console.log("onMoveDown"),
-    onMoveLeft: () => console.log("onMoveLeft"),
-    onMoveRight: () => console.log("onMoveRight"),
-  });
 
   const onBoardMount = useCallback(() => {
     const gameBoard = createGameBoard(4);
@@ -22,10 +18,21 @@ export const Game2048 = () => {
     setBoard(updatedGameBoard);
   }, []);
 
+  const moveHandlers: TMoveEvents = {
+    onMoveUp: () => console.log("onMoveUp"),
+    onMoveDown: () => console.log("onMoveDown"),
+    onMoveLeft: () => console.log("onMoveLeft"),
+    onMoveRight: () => console.log("onMoveRight"),
+  };
+
+  const keyboardControls = useKeyboardControls(moveHandlers);
+  const touchControls = useTouchControls(moveHandlers);
+
   return (
     <div
       ref={onBoardMount}
       {...touchControls}
+      {...keyboardControls}
       className="grid grid-cols-4 grid-rows-4 gap-2 rounded-lg border bg-primary p-2"
     >
       {createArray(4).map((_, i) => {
