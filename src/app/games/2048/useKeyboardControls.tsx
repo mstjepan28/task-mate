@@ -1,22 +1,21 @@
-import type { TMoveEvents } from "./types";
+import type { TMoveEvent } from "./types";
 
-export const useKeyboardControls = (moveCallbacks: TMoveEvents) => {
+export const useKeyboardControls = (moveCallbacks: Record<TMoveEvent, () => void>) => {
   return {
     tabIndex: 0,
     onKeyDown: (e: React.KeyboardEvent) => {
-      const { onMoveUp, onMoveDown, onMoveLeft, onMoveRight } = moveCallbacks;
       switch (e.key) {
         case "ArrowUp":
-          onMoveUp();
+          moveCallbacks.onMoveUp();
           break;
         case "ArrowDown":
-          onMoveDown();
+          moveCallbacks.onMoveDown();
           break;
         case "ArrowLeft":
-          onMoveLeft();
+          moveCallbacks.onMoveLeft();
           break;
         case "ArrowRight":
-          onMoveRight();
+          moveCallbacks.onMoveRight();
           break;
         default:
           break;

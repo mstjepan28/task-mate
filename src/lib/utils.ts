@@ -18,3 +18,7 @@ export const createArray = (length: number): undefined[] => {
 export const sortDateArray = (dates: Dayjs[]) => {
   return dates.sort((a, b) => a.valueOf() - b.valueOf());
 };
+
+export const clamp = (value: number, min: number, max: number) => {
+  return Math.min(Math.max(value, min), max);
+};

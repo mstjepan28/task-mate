@@ -3,8 +3,8 @@
 import { useCallback, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { createArray } from "~/lib/utils";
-import { createGameBoard, createNewTile } from "./helpers";
-import type { TGameBoard, TMoveEvents } from "./types";
+import { createGameBoard, moveHandler } from "./helpers";
+import type { TGameBoard } from "./types";
 import { useKeyboardControls } from "./useKeyboardControls";
 import { useTouchControls } from "./useTouchControls";
 
@@ -13,20 +13,18 @@ export const Game2048 = () => {
 
   const onBoardMount = useCallback(() => {
     const gameBoard = createGameBoard(4);
-    const updatedGameBoard = createNewTile(gameBoard);
-
-    setBoard(updatedGameBoard);
+    setBoard(gameBoard);
   }, []);
 
-  const moveHandlers: TMoveEvents = {
-    onMoveUp: () => console.log("onMoveUp"),
-    onMoveDown: () => console.log("onMoveDown"),
-    onMoveLeft: () => console.log("onMoveLeft"),
-    onMoveRight: () => console.log("onMoveRight"),
+  const handlers = {
+    onMoveUp: () => moveHandler.onMoveUp(board),
+    onMoveDown: () => moveHandler.onMoveDown(board),
+    onMoveLeft: () => moveHandler.onMoveLeft(board),
+    onMoveRight: () => moveHandler.onMoveRight(board),
   };
 
-  const keyboardControls = useKeyboardControls(moveHandlers);
-  const touchControls = useTouchControls(moveHandlers);
+  const keyboardControls = useKeyboardControls(handlers);
+  const touchControls = useTouchControls(handlers);
 
   return (
     <div
@@ -39,6 +37,7 @@ export const Game2048 = () => {
         return createArray(4).map((_, j) => {
           const key = `${i}-${j}`;
           const value = board[i]?.[j] ?? 0;
+
           return <Tile key={key} value={value} />;
         });
       })}
@@ -63,6 +62,7 @@ const Tile = ({ value }: { value: number }) => {
 
   return (
     <div
+      data-value={value}
       className={twMerge(
         `flex aspect-square size-20 items-center justify-center rounded-lg bg-primary-foreground`,
         bgColor,

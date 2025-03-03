@@ -1,8 +1,6 @@
-export type TGameBoard = number[][];
+export type TGameBoard = Array<number | undefined>[];
 
-export type TMoveEvents = {
-  onMoveUp: () => void;
-  onMoveDown: () => void;
-  onMoveLeft: () => void;
-  onMoveRight: () => void;
-};
+export type TMoveEvent = "onMoveUp" | "onMoveDown" | "onMoveLeft" | "onMoveRight";
+type TEventHandlerCallback = (gameBoard: TGameBoard) => void;
+
+export type TMoveEventHandler = Record<TMoveEvent, TEventHandlerCallback>;

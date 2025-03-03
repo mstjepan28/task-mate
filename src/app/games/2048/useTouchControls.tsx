@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import type { TMoveEvents } from "./types";
+import type { TMoveEvent } from "./types";
 
-export const useTouchControls = (moveCallbacks: TMoveEvents) => {
+export const useTouchControls = (moveCallbacks: Record<TMoveEvent, () => void>) => {
   const startPositionRef = useRef({ x: 0, y: 0 });
   const executeMoveRef = useRef<(() => void) | null>(null);
 
